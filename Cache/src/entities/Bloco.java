@@ -8,20 +8,21 @@ public class Bloco {
 
     public Bloco(int nConjuntos) {
         for (int i = 0; i < nConjuntos; i++) {
-            System.out.println("1");
             list.add(new Conjunto());
         }
     }
 
-    public void addConjunto(Conjunto conjunto){
-        list.add(conjunto);
+    public Conjunto getConjunto(int endereco){
+        return list.get(endereco);
     }
 
-    public void procurar(Integer tag){
-        for (Conjunto conjunto : list) {
-            if (conjunto.isValidade()) {
-                
-            }
-        }
+    public void setConjunto(int endereco, Conjunto conjunto){
+        list.add(endereco, conjunto);
+    }
+
+    public void setConjunto(int endereco, int tag){
+        Conjunto temp = list.get(endereco);
+        temp.setTag(tag);
+        list.add(endereco, temp);
     }
 }
