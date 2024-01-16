@@ -57,4 +57,9 @@ public class Conjunto {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "[" + validade + ", tag=" + tag + "]";
+    }
 }

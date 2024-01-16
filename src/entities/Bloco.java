@@ -17,12 +17,16 @@ public class Bloco {
     }
 
     public void setConjunto(int endereco, Conjunto conjunto){
-        list.add(endereco, conjunto);
+        list.set(endereco, conjunto);
     }
 
     public void setConjunto(int endereco, int tag){
         Conjunto temp = list.get(endereco);
         temp.setTag(tag);
-        list.add(endereco, temp);
+        list.set(endereco, temp);
+    }
+
+    public void printBloco(int conjunto) {
+        System.out.println(list.get(conjunto));
     }
 }

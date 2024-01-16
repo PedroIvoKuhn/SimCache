@@ -82,4 +82,19 @@ public class Cache {
         this.miss = miss;
     }
 
+    public void printCache(int conjuntos){
+        System.out.println("=========================================");
+        System.out.println("Hit: " + hit);
+        System.out.println("Miss Compulsorio: " + compulsorio);
+        System.out.println("Miss Conflito: " + conflito);
+        System.out.println("Miss Capacidade: " + capacidade);
+        System.out.println("Miss : " + (capacidade+compulsorio+conflito));
+        for (int i = 0; i < cache.size(); i++) {
+            System.out.println("-==== Via " + i + " ====-");
+            for (int j = 0; j < conjuntos; j++) {
+                cache.get(i).printBloco(j);
+            }
+        }
+        System.out.println("=========================================");
+    }
 }
