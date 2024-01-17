@@ -6,13 +6,25 @@ import java.util.Random;
 
 public class Cache {
     private List<Bloco> cache = new ArrayList<>();
+    private List<Integer> listaFIFO = new ArrayList<>();
+    private ArrayList<Integer>[] matriz;
+    private int tamanhoBloco;
     private int hit;
     private int compulsorio, conflito, capacidade, miss;
 
+    @SuppressWarnings("unchecked")
     public Cache(int nVias, int nConjuntos) {
         for (int i = 0; i < nVias; i++) {
             cache.add(new Bloco(nConjuntos));
         }
+        for (int i = 0; i < nConjuntos; i++) {
+            listaFIFO.add(0);
+        }
+        matriz = (ArrayList<Integer>[]) new ArrayList[nConjuntos];
+        for (int i = 0; i < matriz.length; i++) {
+            matriz[i] = new ArrayList<>();
+        }
+        tamanhoBloco = nConjuntos;
     }
 
     private int random(int nBlocos){
@@ -20,23 +32,75 @@ public class Cache {
         return rand.nextInt(nBlocos);
     }
 
-    public void run(int tag, int indice){
+    private Integer localizacaoTag(int valorRemovido, int indice){
         Conjunto temp;
+        for (int index = 0; index < cache.size(); index++) {
+            temp = cache.get(index).getConjunto(indice);
+            if (temp.getTag() == valorRemovido){
+                return index;
+            }
+        }
+        return null;
+    }
+
+    public void run(int tag, int indice, String substituicao) throws Exception{
+        Conjunto temp;
+        boolean isLRU = false;
+
+        if (substituicao.equals("L") || substituicao.equals("l")) {
+            isLRU = true;
+        }
 
         for (Bloco bloco : cache) {
             temp = bloco.getConjunto(indice);
             if (!temp.isValidade()) {
                 compulsorio++;
                 bloco.setConjunto(indice, new Conjunto(true, tag));
+                if (isLRU) {
+                    matriz[indice].add(tag);
+                }
                 return;
             }else{
                 if (tag == temp.getTag()) {
                     hit++;
+                    if (isLRU) {
+                        matriz[indice].remove(Integer.valueOf(tag));
+                        matriz[indice].add(tag);
+                    }
                     return;
                 }
             }
         }
-        conflito++;
+
+        if (isLRU) {
+            int valorRemovido = matriz[indice].get(0);
+            Integer posicao = localizacaoTag(valorRemovido, indice);
+            if(posicao == null){
+                System.out.println(valorRemovido);
+                throw new Exception("Posicao não encontrada");
+            }
+            cache.get((int) posicao).setConjunto(indice, tag);
+            matriz[indice].remove(0);
+            matriz[indice].add(tag);
+        }
+
+        if (substituicao.equals("F") || substituicao.equals("f")) {
+            int posiFIFO = listaFIFO.get(indice);
+            if (posiFIFO == cache.size()) {
+                posiFIFO = 0;
+            }
+            cache.get(posiFIFO).setConjunto(indice, tag);
+            listaFIFO.set(indice, ++posiFIFO);
+            return;
+        }
+
+
+
+        if (compulsorio == (tamanhoBloco * cache.size())) {
+            capacidade++;
+        }else{
+            conflito++;
+        }
         int bloco = random(cache.size());
         cache.get(bloco).setConjunto(indice, tag);
 
@@ -82,7 +146,7 @@ public class Cache {
         this.miss = miss;
     }
 
-    public void printCache(int conjuntos){
+    public void printCache(){
         System.out.println("=========================================");
         System.out.println("Hit: " + hit);
         System.out.println("Miss Compulsorio: " + compulsorio);
@@ -91,7 +155,7 @@ public class Cache {
         System.out.println("Miss : " + (capacidade+compulsorio+conflito));
         for (int i = 0; i < cache.size(); i++) {
             System.out.println("--============ Via " + i + " ============--");
-            for (int j = 0; j < conjuntos; j++) {
+            for (int j = 0; j < tamanhoBloco; j++) {
                 System.out.print(j + "\t");
                 cache.get(i).printBloco(j);
             }

@@ -15,6 +15,10 @@ public class App {
         System.out.print("Bsize: ");
         int bsize = sc.nextInt();
 
+        System.out.print("Substituicao: ");
+        String subs = sc.next();
+        sc.nextLine();
+        
         int nIndice = 31 - Integer.numberOfLeadingZeros(linhas);
         System.out.println("nIndice: " + nIndice);
 
@@ -34,45 +38,20 @@ public class App {
         System.out.println("Indice: " + indice);
         System.out.println("Tag: " + tag);
 
-
+        //cache.run(tag, indice, subs);
+        cache.run(1, 0, subs);
+        cache.run(2, 0, subs);
+        cache.run(3, 0, subs);
+        cache.run(2, 0, subs);
+        cache.run(5, 0, subs);
+        cache.run(2, 0, subs);
+        cache.run(2, 0, subs);
+        cache.run(8, 0, subs);
+        cache.run(9, 0, subs);
+        cache.run(2, 0, subs);
         
-/*
-        System.out.println("==================================================");
-        System.out.println("Número de bits da entrada: " + nBitsEntrada);
-        System.out.println("Número de bits do indice: " + nIndice);
-        System.out.println("Número de bits da tag: " + (nBitsEntrada - nIndice));
-        System.out.println("Valor do indice: " + indice);
-        System.out.println("Valor da tag: " + tag);
-        System.out.println("==================================================");
-*/
-        cache.run(tag, indice);
 
-        cache.run(1, 2);
-        cache.run(1, 3);
-        cache.run(1, 4);
-        cache.run(2, 2);
-        cache.run(2, 5);
-        cache.run(1, 2);
-        cache.run(0, 7);
-        cache.run(0, 2);
-        cache.run(2, 7);
-        cache.run(1, 3);
-        cache.run(1, 4);
-        cache.run(2, 2);
-        cache.run(2, 5);
-        cache.run(1, 2);
-        cache.run(0, 7);
-        cache.run(0, 2);
-        cache.run(2, 7);
-        cache.run(1, 2);
-        cache.run(0, 7);
-        cache.run(0, 2);
-        cache.run(2, 7);
-        cache.run(1, 3);
-        cache.run(1, 4);
-        cache.run(2, 2);
-
-        cache.printCache(linhas);
+        cache.printCache();
 
         sc.close();
     }
