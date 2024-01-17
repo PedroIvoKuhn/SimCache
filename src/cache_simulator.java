@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 import entities.Cache;
 
-public class App {
+public class cache_simulator {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
 
@@ -45,8 +45,8 @@ public class App {
         cache.run(2, 0, subs);
         cache.run(5, 0, subs);
         cache.run(2, 0, subs);
+        cache.run(7, 0, subs);
         cache.run(2, 0, subs);
-        cache.run(8, 0, subs);
         cache.run(9, 0, subs);
         cache.run(2, 0, subs);
         

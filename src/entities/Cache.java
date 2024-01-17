@@ -76,12 +76,12 @@ public class Cache {
             int valorRemovido = matriz[indice].get(0);
             Integer posicao = localizacaoTag(valorRemovido, indice);
             if(posicao == null){
-                System.out.println(valorRemovido);
                 throw new Exception("Posicao não encontrada");
             }
             cache.get((int) posicao).setConjunto(indice, tag);
             matriz[indice].remove(0);
             matriz[indice].add(tag);
+            return;
         }
 
         if (substituicao.equals("F") || substituicao.equals("f")) {
@@ -94,8 +94,6 @@ public class Cache {
             return;
         }
 
-
-
         if (compulsorio == (tamanhoBloco * cache.size())) {
             capacidade++;
         }else{
@@ -103,7 +101,6 @@ public class Cache {
         }
         int bloco = random(cache.size());
         cache.get(bloco).setConjunto(indice, tag);
-
     }
 
     public int getHit() {
@@ -161,5 +158,11 @@ public class Cache {
             }
         }
         System.out.println("=========================================");
+    }
+
+    public void printMatriz(){
+        for (int i = 0; i < matriz.length; i++) {
+            System.out.println(matriz[i]);
+        }
     }
 }
