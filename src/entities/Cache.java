@@ -90,8 +90,9 @@ public class Cache {
         System.out.println("Miss Capacidade: " + capacidade);
         System.out.println("Miss : " + (capacidade+compulsorio+conflito));
         for (int i = 0; i < cache.size(); i++) {
-            System.out.println("-==== Via " + i + " ====-");
+            System.out.println("--============ Via " + i + " ============--");
             for (int j = 0; j < conjuntos; j++) {
+                System.out.print(j + "\t");
                 cache.get(i).printBloco(j);
             }
         }
