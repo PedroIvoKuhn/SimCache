@@ -44,7 +44,7 @@ public class Cache {
         return null;
     }
 
-    public void run(int tag, int indice, String substituicao) throws Exception{
+    public void run(int tag, int indice, String substituicao){
         Conjunto temp;
         boolean isLRU = false;
 
@@ -73,11 +73,17 @@ public class Cache {
             }
         }
 
+        if (compulsorio == (tamanhoBloco * cache.size())) {
+            capacidade++;
+        }else{
+            conflito++;
+        }
+
         if (isLRU) {
             int valorRemovido = matriz[indice].get(0);
             Integer posicao = localizacaoTag(valorRemovido, indice);
             if(posicao == null){
-                throw new Exception("Posicao não encontrada");
+                throw new RuntimeException("Posicao não encontrada");
             }
             cache.get((int) posicao).setConjunto(indice, tag);
             matriz[indice].remove(0);
@@ -95,11 +101,7 @@ public class Cache {
             return;
         }
 
-        if (compulsorio == (tamanhoBloco * cache.size())) {
-            capacidade++;
-        }else{
-            conflito++;
-        }
+
         int bloco = random(cache.size());
         cache.get(bloco).setConjunto(indice, tag);
     }

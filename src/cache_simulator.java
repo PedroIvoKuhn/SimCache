@@ -19,8 +19,6 @@ public class cache_simulator {
         int flagOut = Integer.parseInt(args[4]);
         String arquivoEntrada = args[5];
 
-
-
         System.out.printf("nsets = %d\n", nsets);
         System.out.printf("bsize = %d\n", bsize);
         System.out.printf("assoc = %d\n", assoc);
