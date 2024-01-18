@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class Cache {
@@ -143,13 +144,40 @@ public class Cache {
         this.miss = miss;
     }
 
+    public void printSaida(){
+        Locale.setDefault(Locale.US);
+        int miss = capacidade + compulsorio + conflito;
+        int total = hit + miss;
+
+        System.out.printf("%d, %.4f, %.4f, %.4f,%.4f, %.4f", total, (float)hit/total, (float)miss/total, (float)compulsorio/miss, (float)capacidade/miss, (float)conflito/miss);
+    }
+
+    public void printSaidaFormatada(){
+        int miss = capacidade + compulsorio + conflito;
+        int total = hit + miss;
+
+        System.out.println("=========================================");
+        System.out.println("Total de acessos:\t\t" + total);
+        System.out.println("Hits:\t\t\t\t" + hit);
+        System.out.println("Taxa de hit:\t\t\t" + ((float)hit / total)*100 + "%");
+        System.out.println("Miss:\t\t\t\t" + miss);
+        System.out.println("Taxa de miss:\t\t\t" + ((float)miss / total)*100 + "%");
+        System.out.println("Miss compulsorio:\t\t" + compulsorio);
+        System.out.println("Taxa de miss compulsorio:\t" + ((float)compulsorio / miss)*100 + "%");
+        System.out.println("Miss conflito:\t\t\t" + conflito);
+        System.out.println("Taxa de miss conflito:\t\t" + ((float)conflito / miss)*100 + "%");
+        System.out.println("Miss capacidade:\t\t" + capacidade);
+        System.out.println("Taxa de miss capacidade:\t" + ((float)capacidade / miss)*100 + "%");
+        System.out.println("=========================================");
+    }
+    
     public void printCache(){
         System.out.println("=========================================");
         System.out.println("Hit: " + hit);
         System.out.println("Miss Compulsorio: " + compulsorio);
         System.out.println("Miss Conflito: " + conflito);
         System.out.println("Miss Capacidade: " + capacidade);
-        System.out.println("Miss : " + (capacidade+compulsorio+conflito));
+        System.out.println("Miss : " + (capacidade + compulsorio + conflito));
         for (int i = 0; i < cache.size(); i++) {
             System.out.println("--============ Via " + i + " ============--");
             for (int j = 0; j < tamanhoBloco; j++) {
