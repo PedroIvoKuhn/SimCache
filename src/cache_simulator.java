@@ -17,21 +17,22 @@ public class cache_simulator {
         int assoc = Integer.parseInt(args[2]);
         String subst = args[3];
         int flagOut = Integer.parseInt(args[4]);
-        String arquivoEntrada = args[5];
-
-        System.out.printf("nsets = %d\n", nsets);
-        System.out.printf("bsize = %d\n", bsize);
-        System.out.printf("assoc = %d\n", assoc);
-        System.out.printf("subst = %s\n", subst);
-        System.out.printf("flagOut = %d\n", flagOut);
-        System.out.printf("arquivo = %s\n", arquivoEntrada);
-                
+        String arquivoEntrada = "enderecos/";
+        arquivoEntrada = arquivoEntrada.concat(args[5]);
         int nIndice = 31 - Integer.numberOfLeadingZeros(nsets);
-        System.out.println("nIndice: " + nIndice);
-
         int nOffset = 31 - Integer.numberOfLeadingZeros(bsize);
-        System.out.println("nOffset: " + nOffset);
 
+        if (flagOut == 0) {
+            System.out.printf("nsets = %d\n", nsets);
+            System.out.printf("bsize = %d\n", bsize);
+            System.out.printf("assoc = %d\n", assoc);
+            System.out.printf("subst = %s\n", subst);
+            System.out.printf("flagOut = %d\n", flagOut);
+            System.out.printf("arquivo = %s\n", arquivoEntrada);
+            System.out.println("nIndice: " + nIndice);
+            System.out.println("nOffset: " + nOffset);
+        }
+                
         Cache cache = new Cache(assoc, nsets);
 
         try (DataInputStream inputStream = new DataInputStream(new FileInputStream(arquivoEntrada))) {
