@@ -20,7 +20,7 @@ Para executar o projeto, siga estas etapas:
     javac cache_simulator.java
     ```
 
-4. Para rodar basta utilizar esse comando:
+4. Para rodar basta utilizar um comando nesse formato:
 
     ```bash
     java cache_simulator <nsets> <bsize> <assoc> <substituição> <flag_saida> <arquivo_de_entrada>
